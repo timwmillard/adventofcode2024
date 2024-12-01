@@ -92,16 +92,17 @@ int part2(FILE *file)
 
 int main(int argc, char *argv[])
 {
+    printf("---- Day %d ----\n", DAY);
+
     FILE *file = stdin;
     if (argc > 1) {
         file = fopen(argv[1], "r");
         if (file == NULL) {
-            fprintf(stderr, "Error opening file %s\n", argv[0]);
+            fprintf(stderr, "Error opening file %s\n", argv[1]);
             return 0;
         }
     }
 
-    printf("---- Day %d ----\n", DAY);
     printf("%d\n", part1(file));
     rewind(file);
     printf("%d\n", part2(file));

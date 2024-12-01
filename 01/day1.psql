@@ -1,0 +1,12 @@
+
+drop schema if exists day1 cascade;
+create schema if not exists day1;
+
+create table day1.input (
+    id serial,
+    left_value int,
+    right_value int
+);
+
+\copy day1.input(left_value, right_value) from '01/input.txt' with delimiter ' ';
+
