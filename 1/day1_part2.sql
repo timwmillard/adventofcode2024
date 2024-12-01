@@ -1,7 +1,7 @@
 with left_col as (
     select 
         row_number() over (order by left_value) as row_id,
-        left_value as left_value
+        left_value
     from day1.input
 ), right_col as (
     select right_value, count(right_value)
