@@ -1,3 +1,4 @@
+-- vim:set ft=sql:
 
 drop schema if exists day2 cascade;
 create schema if not exists day2;
