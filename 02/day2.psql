@@ -1,0 +1,23 @@
+
+drop schema if exists day2 cascade;
+create schema if not exists day2;
+
+create table day2.raw_input (
+    line_no serial,
+    line text
+);
+
+create table day2.input (
+    id serial,
+    report int,
+    value int
+);
+
+\copy day2.raw_input(line) from '02/input.txt';
+
+insert into day2.input (report, value)
+select 
+    line_no,
+    unnest(string_to_array(line, ' '))::int
+from day2.raw_input;
+
