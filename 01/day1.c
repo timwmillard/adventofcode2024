@@ -49,6 +49,9 @@ int part1(FILE* file)
     for (int i = 0; i < arrlen(left); i++) {
         total += abs(left[i] - right[i]);
     }
+    arrfree(left);
+    arrfree(right);
+
     return total;
 }
 
@@ -86,6 +89,9 @@ int part2(FILE *file)
         int v = hmget(right, left[i]);
         total += left[i] * v;
     }
+    arrfree(left);
+    hmfree(right);
+
     return total;
 }
 
