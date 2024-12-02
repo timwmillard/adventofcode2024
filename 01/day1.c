@@ -24,7 +24,6 @@ int part1(FILE* file)
     char line[LINE_SIZE];
     char word[LINE_SIZE];
     while (fgets(line, LINE_SIZE, file)) {
-
         char *ch1 = line;
         int i = 0;
         int num;
