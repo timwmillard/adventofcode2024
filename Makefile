@@ -27,3 +27,14 @@ day2-run: day2
 day2-sample: day2
 	@./day2 02/sample.txt
 
+# Day 3
+
+day3: 03/day3.c
+	$(CC) $(CFLAGS) $< -o $@
+
+day3-run: day3
+	@./day3 03/input.txt
+
+day3-sample: day3
+	@./day3 03/sample.txt
+
