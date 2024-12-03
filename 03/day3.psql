@@ -1,0 +1,16 @@
+-- vim:set ft=sql:
+
+drop schema if exists day3 cascade;
+create schema if not exists day3;
+
+create table day3.raw_input (
+    line text
+);
+
+create table day3.raw_sample (
+    line text
+);
+
+\copy day3.raw_input(line) from '03/input.txt';
+\copy day3.raw_sample(line) from '03/sample2.txt';
+
