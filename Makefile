@@ -1,9 +1,9 @@
 
 CFLAGS += -Ilibs
 
-all: day1 day2
+all: day1 day2 day3
 
-run: day1-run day2-run
+run: day1-run day2-run day3-run
 
 # Day 1
 
@@ -38,3 +38,5 @@ day3-run: day3
 day3-sample: day3
 	@./day3 03/sample.txt
 
+day3-sample2: day3
+	@./day3 03/sample2.txt
