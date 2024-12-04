@@ -129,7 +129,7 @@ bool xmas_west(Grid *g, int r, int c) {
 
 // -row, +col
 bool xmas_north_east(Grid *g, int r, int c) {
-    return ((r - 3) >= 0 && (c + 3) < g->cols)
+    return ((r - 3) >= 0 && c + 3 < g->cols)
         && g->data[(r-1)*g->cols + c+1] == 'M'
         && g->data[(r-2)*g->cols + c+2] == 'A'
         && g->data[(r-3)*g->cols + c+3] == 'S';
@@ -153,7 +153,7 @@ bool xmas_south_east(Grid *g, int r, int c) {
 
 // +row, -col
 bool xmas_south_west(Grid *g, int r, int c) {
-    return (r + 3 >= 0 && c - 3 < g->cols)
+    return (r + 3 < g->rows && c - 3 >= 0)
         && g->data[(r+1)*g->cols + c-1] == 'M'
         && g->data[(r+2)*g->cols + c-2] == 'A'
         && g->data[(r+3)*g->cols + c-3] == 'S';
