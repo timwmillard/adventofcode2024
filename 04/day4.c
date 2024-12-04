@@ -27,6 +27,18 @@ bool xmas_north_west(Grid *grid, int row, int col);
 bool xmas_south_east(Grid *grid, int row, int col);
 bool xmas_south_west(Grid *grid, int row, int col);
 
+/*
+  | 0123456
+--+--------
+0 | S  S  S
+1 |  A A A 
+2 |   MMM  
+3 | SAMXMAS
+4 |   MMM  
+5 |  A A A 
+6 | S  S  S
+*/
+
 int part1(FILE* file)
 {
     Grid g;
