@@ -34,7 +34,6 @@ int part1(FILE* file)
     int rows = 0;
     int cols = 0;
 
-    /*char **content = stringfile(file);*/
     size_t file_len = filelen(file);
 
     grid = malloc(file_len + 1);
@@ -54,11 +53,6 @@ int part1(FILE* file)
 
         rows++;
     }
-    /*for (int i = 0; i < rows; i++) {*/
-    /*    for (int j = 0; j < cols; j++) {*/
-    /*        printf("%d: [%d][%d] = '%c'\n", i*cols+j, i, j, grid[i * cols + j]);*/
-    /*    }*/
-    /*}*/
     g.rows = rows;
     g.cols = cols;
     g.data = grid;
@@ -68,33 +62,22 @@ int part1(FILE* file)
     for (int r = 0; r < rows; r++) {
         for (int c = 0; c < cols; c++) {
             char cell = grid[r*cols + c]; 
-            printf("%d: [%d][%d] = '%c'\n", r*cols+c, r, c, cell);
             if (cell == 'X') {
-                if (xmas_north(&g, r, c)){ count++; printf("   xmas n %d[%d,%d]\n",r*cols+c, r, c);}
-                if (xmas_south(&g, r, c)){ count++; printf("   xmas s %d[%d,%d]\n",r*cols+c, r, c);}
-                if (xmas_west(&g, r, c)){ count++; printf("   xmas w %d[%d,%d]\n",r*cols+c, r, c);}
-                if (xmas_east(&g, r, c)){ count++; printf("   xmas e %d[%d,%d]\n",r*cols+c, r, c);}
+                if (xmas_north(&g, r, c)){ count++; }
+                if (xmas_south(&g, r, c)){ count++; }
+                if (xmas_west(&g, r, c)){ count++; }
+                if (xmas_east(&g, r, c)){ count++; }
 
-                if (xmas_north_west(&g, r, c)){ count++; printf("   xmas nw %d[%d,%d]\n",r*cols+c, r, c);}
-                if (xmas_north_east(&g, r, c)){ count++; printf("   xmas ne %d[%d,%d]\n",r*cols+c, r, c);}
-                if (xmas_south_west(&g, r, c)){ count++; printf("   xmas sw %d[%d,%d]\n",r*cols+c, r, c);}
-                if (xmas_south_east(&g, r, c)){ count++; printf("   xmas se %d[%d,%d]\n",r*cols+c, r, c);}
+                if (xmas_north_west(&g, r, c)){ count++; }
+                if (xmas_north_east(&g, r, c)){ count++; }
+                if (xmas_south_west(&g, r, c)){ count++; }
+                if (xmas_south_east(&g, r, c)){ count++; }
             }
         }
     }
-    printf("rows=%d, cols=%d\n", rows, cols);
     return count;
 }
 
-/*
-0 S  S  S
-1  A A A 
-2   MMM  
-3 SAMXMAS
-4   MMM  
-5  A A A 
-6 S  S  S
-*/
 // -row
 bool xmas_north(Grid *g, int r, int c) {
     return (r - 3 >= 0)
