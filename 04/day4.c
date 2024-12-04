@@ -54,12 +54,11 @@ int part1(FILE* file)
 
         rows++;
     }
-    printf("rows=%d, cols=%d\n", rows, cols);
-    for (int i = 0; i < rows; i++) {
-        for (int j = 0; j < cols; j++) {
-            printf("%d: [%d][%d] = '%c (%d)'\n", i*cols+j, i, j, grid[i * cols + j], grid[i * cols + j]);
-        }
-    }
+    /*for (int i = 0; i < rows; i++) {*/
+    /*    for (int j = 0; j < cols; j++) {*/
+    /*        printf("%d: [%d][%d] = '%c'\n", i*cols+j, i, j, grid[i * cols + j]);*/
+    /*    }*/
+    /*}*/
     g.rows = rows;
     g.cols = cols;
     g.data = grid;
@@ -69,21 +68,21 @@ int part1(FILE* file)
     for (int r = 0; r < rows; r++) {
         for (int c = 0; c < cols; c++) {
             char cell = grid[r*cols + c]; 
+            printf("%d: [%d][%d] = '%c'\n", r*cols+c, r, c, cell);
             if (cell == 'X') {
-                if (r - 3 >= 0 && xmas_north(&g, r, c)) count++ ;
-                if (r + 3 < rows && xmas_south(&g, r, c)) count++;
-                if (c - 3 >= 0 && xmas_west(&g, r, c)) count++;
-                if (c + 3 < cols && xmas_east(&g, r, c)) count++;
+                if (xmas_north(&g, r, c)){ count++; printf("   xmas n %d[%d,%d]\n",r*cols+c, r, c);}
+                if (xmas_south(&g, r, c)){ count++; printf("   xmas s %d[%d,%d]\n",r*cols+c, r, c);}
+                if (xmas_west(&g, r, c)){ count++; printf("   xmas w %d[%d,%d]\n",r*cols+c, r, c);}
+                if (xmas_east(&g, r, c)){ count++; printf("   xmas e %d[%d,%d]\n",r*cols+c, r, c);}
 
-                if (r - 3 >= 0 && c - 3 >= 0 && xmas_north_west(&g, r, c)) count++;
-                if (r - 3 >= 0 && c + 3 < cols && xmas_north_east(&g, r, c)) count++;
-                if (r + 3 >= 0 && c - 3 < cols && xmas_south_west(&g, r, c)) count++;
-                if (r + 3 < rows && c + 3 < cols && xmas_south_east(&g, r, c)) count++;
-
+                if (xmas_north_west(&g, r, c)){ count++; printf("   xmas nw %d[%d,%d]\n",r*cols+c, r, c);}
+                if (xmas_north_east(&g, r, c)){ count++; printf("   xmas ne %d[%d,%d]\n",r*cols+c, r, c);}
+                if (xmas_south_west(&g, r, c)){ count++; printf("   xmas sw %d[%d,%d]\n",r*cols+c, r, c);}
+                if (xmas_south_east(&g, r, c)){ count++; printf("   xmas se %d[%d,%d]\n",r*cols+c, r, c);}
             }
         }
     }
-
+    printf("rows=%d, cols=%d\n", rows, cols);
     return count;
 }
 
@@ -98,63 +97,64 @@ int part1(FILE* file)
 */
 // -row
 bool xmas_north(Grid *g, int r, int c) {
-    return g->data[(r-1)*g->cols + c] == 'M'
+    return (r - 3 >= 0)
+        && g->data[(r-1)*g->cols + c] == 'M'
         && g->data[(r-2)*g->cols + c] == 'A'
         && g->data[(r-3)*g->cols + c] == 'S';
 }
 
 // +col
-bool xmas_east(Grid *g, int r, int c)
-{
-    return g->data[r*g->cols + c+1] == 'M'
+bool xmas_east(Grid *g, int r, int c) {
+    return (c + 3 < g->cols)
+        && g->data[r*g->cols + c+1] == 'M'
         && g->data[r*g->cols + c+2] == 'A'
         && g->data[r*g->cols + c+3] == 'S';
 }
 
 // +row
-bool xmas_south(Grid *g, int r, int c)
-{
-    return g->data[(r+1)*g->cols + c] == 'M'
+bool xmas_south(Grid *g, int r, int c) {
+    return (r + 3 < g->rows)
+        && g->data[(r+1)*g->cols + c] == 'M'
         && g->data[(r+2)*g->cols + c] == 'A'
         && g->data[(r+3)*g->cols + c] == 'S';
 }
 
 // -col
-bool xmas_west(Grid *g, int r, int c)
-{
-    return g->data[r*g->cols + c-1] == 'M'
+bool xmas_west(Grid *g, int r, int c) {
+    return (c - 3 >= 0)
+        && g->data[r*g->cols + c-1] == 'M'
         && g->data[r*g->cols + c-2] == 'A'
         && g->data[r*g->cols + c-3] == 'S';
 }
 
 // -row, +col
-bool xmas_north_east(Grid *g, int r, int c)
-{
-    return g->data[(r-1)*g->cols + c+1] == 'M'
+bool xmas_north_east(Grid *g, int r, int c) {
+    return ((r - 3) >= 0 && (c + 3) < g->cols)
+        && g->data[(r-1)*g->cols + c+1] == 'M'
         && g->data[(r-2)*g->cols + c+2] == 'A'
         && g->data[(r-3)*g->cols + c+3] == 'S';
 }
 
 // -row, -col
-bool xmas_north_west(Grid *g, int r, int c)
-{
-    return g->data[(r-1)*g->cols + c-1] == 'M'
+bool xmas_north_west(Grid *g, int r, int c) {
+    return (r - 3 >= 0 && c - 3 >= 0)
+        && g->data[(r-1)*g->cols + c-1] == 'M'
         && g->data[(r-2)*g->cols + c-2] == 'A'
         && g->data[(r-3)*g->cols + c-3] == 'S';
 }
 
 // +row, +col
-bool xmas_south_east(Grid *g, int r, int c)
-{
-    return g->data[(r+1)*g->cols + c+1] == 'M'
+bool xmas_south_east(Grid *g, int r, int c) {
+    return (r + 3 < g->rows && c + 3 < g->cols)
+        && g->data[(r+1)*g->cols + c+1] == 'M'
         && g->data[(r+2)*g->cols + c+2] == 'A'
         && g->data[(r+3)*g->cols + c+3] == 'S';
 }
 
 // +row, -col
-bool xmas_south_west(Grid *g, int r, int c)
-{
-    return g->data[(r+1)*g->cols + c-1] == 'M'
+bool xmas_south_west(Grid *g, int r, int c) {
+    return (r + 3 >= 0 && c - 3 < g->cols)
+        && g->data[(r+1)*g->cols + c-1] == 'M'
         && g->data[(r+2)*g->cols + c-2] == 'A'
         && g->data[(r+3)*g->cols + c-3] == 'S';
 }
