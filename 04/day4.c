@@ -155,9 +155,75 @@ bool xmas_south_west(Grid *g, int r, int c) {
 }
 
 
+bool xmas_left_right(Grid *grid, int row, int col);
+bool xmas_right_left(Grid *grid, int row, int col);
+
+/*
+  | 012
+--+----
+0 | M.S
+1 | .A.
+2 | M.S
+*/
+
 int part2(FILE *file)
 {
-    return 0;
+    Grid g;
+    char *grid;
+    int rows = 0;
+    int cols = 0;
+
+    size_t file_len = filelen(file);
+
+    grid = malloc(file_len + 1);
+
+    char line[LINE_SIZE];
+    while (fgets(line, LINE_SIZE, file)) {
+        cols = strlen(line);
+        // Remove newline
+        char *ch = &line[cols-1];
+        while (*ch == '\n' || *ch == '\r') {
+            ch--;
+            cols--;
+        }
+        ch[cols] = '\0';
+
+        memcpy(grid+rows*cols, line, cols);
+
+        rows++;
+    }
+    g.rows = rows;
+    g.cols = cols;
+    g.data = grid;
+
+    // XMAS
+    int count = 0;
+    for (int r = 0; r < rows; r++) {
+        for (int c = 0; c < cols; c++) {
+            char cell = grid[r*cols + c]; 
+            if (cell == 'A') {
+                if (xmas_left_right(&g, r, c) && xmas_right_left(&g, r, c))
+                    count++;
+            }
+        }
+    }
+    return count;
+}
+
+// -row -col
+// +row +col
+bool xmas_left_right(Grid *g, int r, int c) {
+    return (r - 1 >= 0 && c - 1 >= 0 && r + 1 < g->rows && c + 1 < g->cols)
+        && (g->data[(r-1)*g->cols + c-1] == 'M' &&  g->data[(r+1)*g->cols + c+1] == 'S'
+        || g->data[(r-1)*g->cols + c-1] == 'S' &&  g->data[(r+1)*g->cols + c+1] == 'M');
+}
+
+// -row +col
+// +row -col
+bool xmas_right_left(Grid *g, int r, int c){ 
+    return (r - 1 >= 0 && c + 1 < g->cols && r + 1 < g->rows && c - 1 >= 0)
+        && (g->data[(r-1)*g->cols + c+1] == 'M' &&  g->data[(r+1)*g->cols + c-1] == 'S'
+        || g->data[(r-1)*g->cols + c+1] == 'S' &&  g->data[(r+1)*g->cols + c-1] == 'M');
 }
 
 int main(int argc, char *argv[])

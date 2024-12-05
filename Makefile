@@ -52,3 +52,5 @@ day4-run: day4
 day4-sample: day4
 	@./day4 04/sample.txt
 
+day4-sample2: day4
+	@./day4 04/sample2.txt
