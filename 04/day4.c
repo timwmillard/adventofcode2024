@@ -3,9 +3,8 @@
 #include <getopt.h>
 #include <stdbool.h>
 #include <limits.h>
+#include <string.h>
 
-#define STB_DS_IMPLEMENTATION
-#include "stb_ds.h"
 
 #define DAY 4
 
