@@ -73,7 +73,7 @@ int part1(FILE* file)
     int count = 0;
     for (int r = 0; r < rows; r++) {
         for (int c = 0; c < cols; c++) {
-            char cell = grid[r*cols + c]; 
+            char cell = grid[r*cols + c];
             if (cell == 'X') {
                 if (xmas_north(&g, r, c)){ count++; }
                 if (xmas_south(&g, r, c)){ count++; }
@@ -200,7 +200,7 @@ int part2(FILE *file)
     int count = 0;
     for (int r = 0; r < rows; r++) {
         for (int c = 0; c < cols; c++) {
-            char cell = grid[r*cols + c]; 
+            char cell = grid[r*cols + c];
             if (cell == 'A') {
                 if (xmas_left_right(&g, r, c) && xmas_right_left(&g, r, c))
                     count++;
@@ -220,7 +220,7 @@ bool xmas_left_right(Grid *g, int r, int c) {
 
 // -row +col
 // +row -col
-bool xmas_right_left(Grid *g, int r, int c){ 
+bool xmas_right_left(Grid *g, int r, int c){
     return (r - 1 >= 0 && c + 1 < g->cols && r + 1 < g->rows && c - 1 >= 0)
         && (g->data[(r-1)*g->cols + c+1] == 'M' &&  g->data[(r+1)*g->cols + c-1] == 'S'
         || g->data[(r-1)*g->cols + c+1] == 'S' &&  g->data[(r+1)*g->cols + c-1] == 'M');
